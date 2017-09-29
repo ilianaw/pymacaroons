@@ -73,12 +73,11 @@ n = Macaroon.deserialize("MDAyZWxvY2F0aW9uIGNvb2wtcGljdHVyZS1zZXJ2aWNlLmV4YW1wbG
 v = Verifier()
 
 # General caveats are verified by arbitrary functions
-# that return false if the caveat is not met
-# and true if it is met or not understood
+# that return True only if the caveat is understood and met
 def picture_access_validator(predicate):
     # in this case, predicate = 'picture_id = bobs_cool_cat.jpg'
     if predicate.split(' = ')[0] != 'picture_id':
-        return True
+        return False
     return predicate.split(' = ')[1] == 'bobs_cool_cat.jpg'
     
 # The verifier is informed of all relevant contextual information needed
